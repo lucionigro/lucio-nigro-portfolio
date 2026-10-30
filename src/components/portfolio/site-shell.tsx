@@ -85,13 +85,13 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
             <button aria-label="English" aria-pressed={en} onClick={() => setLanguage("en")}>EN</button>
             <button aria-label="Español" aria-pressed={!en} onClick={() => setLanguage("es")}>ES</button>
           </div>
-          <a className="site-email" href="mailto:lucionigrot@gmail.com">Email<ArrowUpRight size={15}/></a>
+          <a className="site-email" href="mailto:lnigrot@gmail.com">Email<ArrowUpRight size={15}/></a>
         </div>
       </header>
       <div ref={content}>{children}</div>
       <footer className="site-footer">
         <span>Lucio Nigro</span>
-        <div><a href="https://github.com/lucionigro" target="_blank" rel="noopener noreferrer">GitHub<ArrowUpRight size={13}/></a><a href="https://www.linkedin.com/in/lucionigro/" target="_blank" rel="noopener noreferrer">LinkedIn<ArrowUpRight size={13}/></a><a href="mailto:lucionigrot@gmail.com">{en ? "Get in touch" : "Hablemos"}<ArrowUpRight size={13}/></a></div>
+        <div><a href="https://github.com/lucionigro" target="_blank" rel="noopener noreferrer">GitHub<ArrowUpRight size={13}/></a><a href="https://www.linkedin.com/in/lucionigro/" target="_blank" rel="noopener noreferrer">LinkedIn<ArrowUpRight size={13}/></a><a href="mailto:lnigrot@gmail.com">{en ? "Get in touch" : "Hablemos"}<ArrowUpRight size={13}/></a></div>
       </footer>
     </div>
   </RouteIntentContext.Provider></LanguageContext.Provider>;

@@ -39,7 +39,7 @@ export function WorkPage() {
     <section className="work-details" aria-labelledby="skills-title"><div><h2 id="skills-title" className="work-section-title">{en ? "Technical skills" : "Habilidades técnicas"}</h2><dl className="skills-list">{skills.map(skill => <div key={skill.label}><dt>{skill.label}</dt><dd>{skill.value}</dd></div>)}</dl></div>
     <div><h2 className="work-section-title">{en ? "Languages" : "Idiomas"}</h2><p className="work-languages">{en ? "Spanish · Native" : "Español · Nativo"}<br/>{en ? "English · Upper-intermediate (B2+)" : "Inglés · Intermedio alto (B2+)"}</p><p className="work-communication">{en ? "Technical documentation and clear communication across engineering and operations." : "Documentación técnica y comunicación clara entre ingeniería y operaciones."}</p></div></section>
     <section className="education-section" aria-labelledby="education-title"><h2 id="education-title" className="work-section-title">{en ? "Education & further study" : "Formación y estudios"}</h2><div className="education-grid">{education.map(entry => <article key={entry.course}><p className="education-date">{entry.date}</p><h3>{entry.course}</h3><p>{entry.school}</p></article>)}</div></section>
-    <a className="text-link closing-link" href="mailto:lucionigrot@gmail.com">{en ? "Let’s talk about your next project" : "Hablemos de tu próximo proyecto"}<ArrowUpRight size={20}/></a>
+    <a className="text-link closing-link" href="mailto:lnigrot@gmail.com">{en ? "Let’s talk about your next project" : "Hablemos de tu próximo proyecto"}<ArrowUpRight size={20}/></a>
   </main>;
 
 }

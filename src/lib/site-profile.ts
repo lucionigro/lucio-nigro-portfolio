@@ -4,7 +4,7 @@ export const siteProfile = {
   name: "Lucio Nigro",
   title: "Lucio Nigro — Software Engineer",
   description: "Software engineer building payment systems and AI agents. Explore Lucio Nigro’s work, music, cinema, books, and film photography in an interactive 3D room.",
-  email: "lucionigrot@gmail.com",
+  email: "lnigrot@gmail.com",
   sameAs: ["https://github.com/lucionigro", "https://www.linkedin.com/in/lucionigro/"],
 };
 const id = (fragment: string) => `${siteProfile.url}#${fragment}`;

@@ -14,7 +14,7 @@ const person = graph.find(n => n['@type'] === 'Person');
 const profile = graph.find(n => n['@type'] === 'ProfilePage');
 const website = graph.find(n => n['@type'] === 'WebSite');
 check('Person, ProfilePage and WebSite exist', person && profile && website);
-check('Real public identity', person.name === 'Lucio Nigro' && person.email === 'lucionigrot@gmail.com');
+check('Real public identity', person.name === 'Lucio Nigro' && person.email === 'lnigrot@gmail.com');
 check('Role and employer match visible SSR content', html.includes(person.jobTitle) && html.includes(person.worksFor.name));
 check('Public profiles match page links', person.sameAs.every(url => html.includes(url)));
 const ids = new Set(graph.map(n => n['@id']));
