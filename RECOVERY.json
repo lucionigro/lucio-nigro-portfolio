@@ -1,0 +1,177 @@
+{
+  "source": "Vercel production deployment",
+  "deployment": "dpl_BY4XMcFFJhFfMfcfV8tY2GmnCjF1",
+  "domain": "www.lucionigro.com",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha1": "8a38a9be445fb29e9ce77bb23d1086eb2dc3d656",
+      "bytes": 678
+    },
+    {
+      "path": "CLAUDE.md",
+      "sha1": "c140473a3a5fbe89301c99d9d0d1b76c5971f2c3",
+      "bytes": 11
+    },
+    {
+      "path": "README.md",
+      "sha1": "9d1f54e7243854c4a7a70af90f36ec53d06d7072",
+      "bytes": 927
+    },
+    {
+      "path": "eslint.config.mjs",
+      "sha1": "44d5bed565a8dd284af3e17f3b16a1c752008d0e",
+      "bytes": 465
+    },
+    {
+      "path": "next-env.d.ts",
+      "sha1": "915946e261450f4fb6aab2ca862c8b440b748240",
+      "bytes": 288
+    },
+    {
+      "path": "next.config.ts",
+      "sha1": "4538095e9f41e922b035b39395ba8debd86efac4",
+      "bytes": 147
+    },
+    {
+      "path": "package-lock.json",
+      "sha1": "d255933717b850332fff4fc8af62c78023b4d022",
+      "bytes": 237233
+    },
+    {
+      "path": "package.json",
+      "sha1": "53da60631adb36c3a5bfc47371008428b3a8a36e",
+      "bytes": 567
+    },
+    {
+      "path": "postcss.config.mjs",
+      "sha1": "8f8be689e9af58f80351df6e6b551146822f42a4",
+      "bytes": 94
+    },
+    {
+      "path": "public/assets/photography/flores-canon-av1.jpg",
+      "sha1": "427d8d38291d6a62fe91dfffd0e43ae7fe257335",
+      "bytes": 45869
+    },
+    {
+      "path": "public/assets/photography/libreria-canon-av1.jpg",
+      "sha1": "85f1b35523bf23994c2bcef2aa6412d993a330ee",
+      "bytes": 584131
+    },
+    {
+      "path": "public/assets/photography/perro-canon-av1.jpg",
+      "sha1": "b7ca86ec2a770f6d2238fc4f5778c9c0dcd5be40",
+      "bytes": 342383
+    },
+    {
+      "path": "public/assets/pixel-cloud.png",
+      "sha1": "ed297bff5824a0f5a10dc01875f62e4f947badaf",
+      "bytes": 90865
+    },
+    {
+      "path": "public/assets/pixel-room-v2.png",
+      "sha1": "be8a64e482f7d215b8a50a2fee7f638bc90975e4",
+      "bytes": 1912546
+    },
+    {
+      "path": "public/assets/pixel-room-v3.png",
+      "sha1": "091f468f6a11b9a06b3a343d66bd39d9b2c5f43a",
+      "bytes": 2030098
+    },
+    {
+      "path": "public/assets/pixel-room-v4.png",
+      "sha1": "e0fb2c08c59791a6927cd56ab8661ab801eccbf9",
+      "bytes": 1946298
+    },
+    {
+      "path": "public/assets/pixel-room-v5.png",
+      "sha1": "74dcb8dbb1f8281e21aa0ed5cbbd444d30aaff96",
+      "bytes": 2072885
+    },
+    {
+      "path": "public/assets/pixel-room-v6.png",
+      "sha1": "a4c6f3ff185d32864ddc38a650ea7362352b4b60",
+      "bytes": 2330071
+    },
+    {
+      "path": "public/assets/pixel-room-v7.png",
+      "sha1": "9fe572659ca375e92b400a9045e55984947d1b99",
+      "bytes": 2264828
+    },
+    {
+      "path": "public/assets/pixel-room.png",
+      "sha1": "215d38e861a579f7a08f2a2b4ab50eefbcc1ed0a",
+      "bytes": 1994268
+    },
+    {
+      "path": "public/file.svg",
+      "sha1": "fb380eeffe87d50b597383664c02982964d0d28c",
+      "bytes": 391
+    },
+    {
+      "path": "public/globe.svg",
+      "sha1": "2eba23b01a46733bb8423e6d38ebf5f7e95abec5",
+      "bytes": 1035
+    },
+    {
+      "path": "public/next.svg",
+      "sha1": "3f3e95622612b989c5bd6a03299a308c6f3c7e6b",
+      "bytes": 1375
+    },
+    {
+      "path": "public/vercel.svg",
+      "sha1": "cebb8852d58c8886be3e9051a26957f42bb82f1a",
+      "bytes": 128
+    },
+    {
+      "path": "public/window.svg",
+      "sha1": "54c48e0daa6caa317fe1b4c419007fd93e948db9",
+      "bytes": 385
+    },
+    {
+      "path": "src/app/apple-icon.png",
+      "sha1": "e4e5dcff5851eed908c55a67557ff6a25dd42629",
+      "bytes": 40394
+    },
+    {
+      "path": "src/app/favicon.ico",
+      "sha1": "9ba83ae1dced77237f9d16aa847b338ca5b704fb",
+      "bytes": 4414
+    },
+    {
+      "path": "src/app/globals.css",
+      "sha1": "b22544343e2249dd0540a45bb67096628ddd36fe",
+      "bytes": 5574
+    },
+    {
+      "path": "src/app/icon.png",
+      "sha1": "d6712ea28fec892d37fbf9809cbeb5f79bbfba89",
+      "bytes": 232781
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "sha1": "0416a7bdf71581202b66fdd09524688dc16bdc09",
+      "bytes": 701
+    },
+    {
+      "path": "src/app/page.tsx",
+      "sha1": "dc76ea844a0200124a0ded3b887973eee8794690",
+      "bytes": 113
+    },
+    {
+      "path": "src/components/pixel-room.tsx",
+      "sha1": "478eb3fbfaa4b257fa3b4e005d736b2a85353ed1",
+      "bytes": 14925
+    },
+    {
+      "path": "src/lib/room-content.ts",
+      "sha1": "784b0cfa85474317e7a7c44c3dfb9d3f09a6fce2",
+      "bytes": 5542
+    },
+    {
+      "path": "tsconfig.json",
+      "sha1": "27dded29dc880f958ee67c9ed276fb2b1412f515",
+      "bytes": 670
+    }
+  ]
+}

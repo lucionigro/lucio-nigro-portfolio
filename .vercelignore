@@ -1,0 +1,12 @@
+/work/
+/.agents/
+.next/
+node_modules/
+*.tsbuildinfo
+.env*
+seo-schema.json
+seo-validation.json
+RECOVERY.json
+AGENTS.md
+CLAUDE.md
+README.md

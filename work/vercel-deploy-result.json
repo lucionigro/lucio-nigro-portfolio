@@ -1,0 +1,37 @@
+{
+  "status": "ok",
+  "deployment": {
+    "id": "dpl_2byeF4vHusun2uCK4wgb5x7UXVcw",
+    "url": "https://lucio-nigro-portfolio-pkbl5k1po-lnigrot-5774s-projects.vercel.app",
+    "productionUrl": "https://lucio-nigro-portfolio-lnigrot-5774s-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/lnigrot-5774s-projects/lucio-nigro-portfolio/2byeF4vHusun2uCK4wgb5x7UXVcw",
+    "readyState": "READY",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_2byeF4vHusun2uCK4wgb5x7UXVcw",
+    "buildMachine": {
+      "cores": 2,
+      "memory": 8192,
+      "machine": "basic",
+      "selectionType": "fixed",
+      "selectionSource": "plan-default"
+    },
+    "deploymentProtection": [
+      "vercel_authentication"
+    ]
+  },
+  "message": "Deployment lucio-nigro-portfolio-pkbl5k1po-lnigrot-5774s-projects.vercel.app ready. Production URL: https://lucio-nigro-portfolio-lnigrot-5774s-projects.vercel.app",
+  "next": [
+    {
+      "command": "vercel curl https://lucio-nigro-portfolio-lnigrot-5774s-projects.vercel.app",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect lucio-nigro-portfolio-pkbl5k1po-lnigrot-5774s-projects.vercel.app --scope lnigrot-5774s-projects",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod --scope lnigrot-5774s-projects",
+      "when": "Promote to production"
+    }
+  ]
+}

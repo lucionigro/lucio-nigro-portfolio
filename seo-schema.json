@@ -1,0 +1,52 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://www.lucionigro.com/#person",
+      "name": "Lucio Nigro",
+      "url": "https://www.lucionigro.com/",
+      "jobTitle": "AI Backend Payments Engineer",
+      "description": "Software engineer working on payment systems and AI agents.",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Belong"
+      },
+      "email": "lucionigrot@gmail.com",
+      "sameAs": [
+        "https://github.com/lucionigro",
+        "https://www.linkedin.com/in/lucionigro/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.lucionigro.com/#website",
+      "url": "https://www.lucionigro.com/",
+      "name": "Lucio Nigro",
+      "inLanguage": [
+        "en",
+        "es"
+      ],
+      "publisher": {
+        "@id": "https://www.lucionigro.com/#person"
+      }
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://www.lucionigro.com/#page",
+      "url": "https://www.lucionigro.com/",
+      "name": "Lucio Nigro — Software Engineer",
+      "description": "Software engineer building payment systems and AI agents. Explore Lucio Nigro’s work, music, cinema, books, and film photography in an interactive 3D room.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://www.lucionigro.com/#website"
+      },
+      "about": {
+        "@id": "https://www.lucionigro.com/#person"
+      },
+      "mainEntity": {
+        "@id": "https://www.lucionigro.com/#person"
+      }
+    }
+  ]
+}

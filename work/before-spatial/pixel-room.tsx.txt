@@ -1,0 +1,328 @@
+"use client";
+
+import Image from "next/image";
+import dynamic from "next/dynamic";
+import {
+  Books,
+  Camera,
+  FilmStrip,
+  Guitar,
+  Laptop,
+  Pause,
+  Play,
+} from "@phosphor-icons/react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { gsap } from "gsap";
+import {
+  getRoomItems,
+  interfaceText,
+  type Language,
+  type RoomItemId,
+} from "@/lib/room-content";
+import { RoomCard } from "./room/room-card";
+
+const Atmosphere = dynamic(() => import("./room/atmosphere"), { ssr: false });
+const icons = {
+  work: Laptop,
+  cinema: FilmStrip,
+  music: Guitar,
+  books: Books,
+  photo: Camera,
+};
+const terminalLines = [
+  "const room = await render()",
+  "building payment systems",
+  "connecting the pieces",
+  "return humanStory",
+  "testing the next idea",
+  "making things work",
+];
+
+export function PixelRoom() {
+  const [language, setLanguage] = useState<Language>("en");
+  const [activeId, setActiveId] = useState<RoomItemId | null>(null);
+  const [imageState, setImageState] = useState<"loading" | "ready" | "error">(
+    "loading",
+  );
+  const [paused, setPaused] = useState(false);
+  const [overview, setOverview] = useState(false);
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLElement>(null);
+  const initialized = useRef(false);
+  const items = useMemo(() => getRoomItems(language), [language]);
+  const item = items.find((entry) => entry.id === activeId) ?? null;
+  const text = interfaceText[language];
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+    document.title = text.title;
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute("content", text.description);
+  }, [language, text]);
+
+  useLayoutEffect(() => {
+    if (imageState !== "ready") return;
+    const viewport = viewportRef.current;
+    if (viewport && !initialized.current) {
+      viewport.scrollLeft = (viewport.scrollWidth - viewport.clientWidth) / 2;
+      initialized.current = true;
+    }
+    const media = gsap.matchMedia();
+    media.add("(prefers-reduced-motion: no-preference)", () => {
+      const context = gsap.context(() => {
+        gsap.fromTo(
+          ".room-viewport",
+          { opacity: 0, y: 10 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out",
+            clearProps: "all",
+          },
+        );
+        gsap.fromTo(
+          ".room-nav button",
+          { opacity: 0, y: 10 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.06,
+            delay: 0.15,
+            duration: 0.6,
+            ease: "power3.out",
+            clearProps: "all",
+          },
+        );
+      }, rootRef);
+      return () => context.revert();
+    });
+    return () => media.revert();
+  }, [imageState]);
+
+  useLayoutEffect(() => {
+    const scene = sceneRef.current;
+    if (!scene) return;
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+    const mobile = matchMedia("(max-width: 767px)");
+    let tween: gsap.core.Tween | undefined;
+    const animate = () => {
+      tween?.kill();
+      tween = gsap.to(scene, {
+        scale:
+          item && !reduced.matches
+            ? mobile.matches
+              ? 1.12
+              : item.zoom.scale
+            : 1,
+        transformOrigin: item?.zoom.origin ?? "50% 50%",
+        duration: reduced.matches ? 0 : 0.9,
+        ease: "power3.inOut",
+        overwrite: true,
+      });
+    };
+    animate();
+    reduced.addEventListener("change", animate);
+    mobile.addEventListener("change", animate);
+    return () => {
+      tween?.kill();
+      reduced.removeEventListener("change", animate);
+      mobile.removeEventListener("change", animate);
+    };
+  }, [item]);
+
+  const openItem = (id: RoomItemId) => {
+    const target = items.find((entry) => entry.id === id)!;
+    const viewport = viewportRef.current;
+    if (viewport && matchMedia("(max-width: 767px)").matches && !overview) {
+      const center =
+        (parseFloat(target.position.left) +
+          parseFloat(target.position.width) / 2) /
+        100;
+      viewport.scrollTo({
+        left: viewport.scrollWidth * center - viewport.clientWidth / 2,
+        behavior: "instant",
+      });
+    }
+    setActiveId(id);
+  };
+  const step = (direction: number) => {
+    const index = items.findIndex((entry) => entry.id === activeId);
+    openItem(items[(index + direction + items.length) % items.length].id);
+  };
+
+  return (
+    <main
+      ref={rootRef}
+      className="room-app grain"
+      data-paused={paused || !!activeId}
+    >
+      <header className="room-header">
+        <div className="room-brand">
+          <h1>{text.name}</h1>
+          <p>{text.subtitle}</p>
+        </div>
+        <div className="header-actions">
+          <div
+            className="language-switch"
+            aria-label={language === "en" ? "Language" : "Idioma"}
+          >
+            {(["en", "es"] as const).map((option) => (
+              <button
+                key={option}
+                lang={option}
+                aria-pressed={option === language}
+                aria-label={option === "en" ? "English" : "Español"}
+                onClick={() => setLanguage(option)}
+              >
+                {option.toUpperCase()}
+              </button>
+            ))}
+          </div>
+          <button
+            className="icon-button"
+            onClick={() => setPaused(!paused)}
+            aria-pressed={paused}
+            aria-label={paused ? text.motionOff : text.motionOn}
+          >
+            {paused ? <Play size={17} /> : <Pause size={17} />}
+          </button>
+        </div>
+      </header>
+      <div className="room-intro">
+        <p>{text.instruction}</p>
+        <button
+          className="overview-button"
+          aria-pressed={overview}
+          onClick={() => setOverview(!overview)}
+        >
+          {language === "en"
+            ? overview
+              ? "Explore up close"
+              : "View whole room"
+            : overview
+              ? "Explorar de cerca"
+              : "Ver habitación completa"}
+        </button>
+      </div>
+      <section aria-label={text.room} className="room-frame">
+        <div
+          ref={viewportRef}
+          className={`room-viewport ${overview ? "is-overview" : ""}`}
+          tabIndex={0}
+          aria-label={text.room}
+        >
+          <div className="room-stage">
+            <div ref={sceneRef} className="room-scene">
+              <Image
+                src="/assets/pixel-room-v7.png"
+                alt={text.imageAlt}
+                fill
+                preload
+                sizes="(max-width: 767px) 900px, 100vw"
+                className="pixelated room-image"
+                onLoad={() => setImageState("ready")}
+                onError={() => setImageState("error")}
+              />
+              {imageState === "ready" && (
+                <Atmosphere paused={paused || !!activeId} />
+              )}
+              <div className="window-pane window-pane-left" aria-hidden="true">
+                <span className="window-cloud window-cloud-near" />
+                <span className="window-cloud window-cloud-far" />
+              </div>
+              <div className="window-pane window-pane-right" aria-hidden="true">
+                <span className="window-cloud window-cloud-near window-cloud-offset" />
+                <span className="window-cloud window-cloud-far window-cloud-late" />
+              </div>
+              <div className="lamp-light desk-light" aria-hidden="true" />
+              <div className="lamp-light floor-light" aria-hidden="true" />
+              <div className="laptop-terminal" aria-hidden="true">
+                <div className="terminal-bar">
+                  <span>LUCIO / WORKSPACE</span>
+                  <span className="terminal-cursor" />
+                </div>
+                <div className="terminal-window">
+                  <div className="terminal-code-track">
+                    {[...terminalLines, ...terminalLines].map((line, index) => (
+                      <span key={index}>{line}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="scanlines" aria-hidden="true" />
+              {items.map((entry) => (
+                <button
+                  type="button"
+                  key={entry.id}
+                  className="hotspot"
+                  aria-label={entry.objectLabel}
+                  aria-haspopup="dialog"
+                  aria-expanded={activeId === entry.id}
+                  data-label={entry.shortLabel}
+                  style={entry.position}
+                  onClick={() => openItem(entry.id)}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+        {imageState !== "ready" && (
+          <div className="room-loading" role="status">
+            <p>{imageState === "error" ? text.error : text.loading}</p>
+            {imageState === "error" && (
+              <button onClick={() => location.reload()}>{text.retry}</button>
+            )}
+          </div>
+        )}
+      </section>
+      <div className="room-navigation">
+        <p className="room-hint">
+          <span className="desktop-hint">{text.desktopHint}</span>
+          <span className="mobile-hint">{text.mobileHint}</span>
+        </p>
+        <nav className="room-nav" aria-label={text.objects}>
+          {items.map((entry) => {
+            const Icon = icons[entry.id];
+            return (
+              <button
+                key={entry.id}
+                onClick={() => openItem(entry.id)}
+                aria-pressed={entry.id === activeId}
+              >
+                <Icon size={21} weight="light" />
+                <span>{entry.shortLabel}</span>
+              </button>
+            );
+          })}
+        </nav>
+      </div>
+      <footer className="room-footer">
+        <span>Lucio Nigro</span>
+        <a href="mailto:lucionigrot@gmail.com">{text.contact}</a>
+        <a
+          href="https://www.linkedin.com/in/lucionigro/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn
+        </a>
+        <a
+          href="https://github.com/lucionigro"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+        </a>
+      </footer>
+      <RoomCard
+        item={item}
+        language={language}
+        onClose={() => setActiveId(null)}
+        onStep={step}
+      />
+    </main>
+  );
+}

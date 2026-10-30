@@ -1,0 +1,499 @@
+{
+  "framework": {
+    "name": "Next.js",
+    "slug": "nextjs"
+  },
+  "basePath": "/Users/lucionigro/Repository/lucio-nigro-portfolio",
+  "fileCount": 57,
+  "totalSize": 23643482,
+  "ignoredCount": 16,
+  "ignored": [
+    ".agents/skills",
+    ".gitignore",
+    ".next",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "README.md",
+    "RECOVERY.json",
+    "node_modules",
+    "seo-schema.json",
+    "seo-validation.json",
+    "tsconfig.tsbuildinfo",
+    "work/before-spatial",
+    "work/cv-review",
+    "work/room-life",
+    "work/room-life-backup",
+    "work/vercel-deploy-inputs.json"
+  ],
+  "directories": [
+    {
+      "path": "public",
+      "fileCount": 24,
+      "size": 22993001
+    },
+    {
+      "path": "src",
+      "fileCount": 22,
+      "size": 402137
+    },
+    {
+      "path": "package-lock.json",
+      "fileCount": 1,
+      "size": 240916
+    },
+    {
+      "path": "scripts",
+      "fileCount": 1,
+      "size": 4890
+    },
+    {
+      "path": "package.json",
+      "fileCount": 1,
+      "size": 736
+    },
+    {
+      "path": "tsconfig.json",
+      "fileCount": 1,
+      "size": 670
+    },
+    {
+      "path": "eslint.config.mjs",
+      "fileCount": 1,
+      "size": 465
+    },
+    {
+      "path": "next-env.d.ts",
+      "fileCount": 1,
+      "size": 288
+    },
+    {
+      "path": "next.config.ts",
+      "fileCount": 1,
+      "size": 147
+    },
+    {
+      "path": ".vercelignore",
+      "fileCount": 1,
+      "size": 138
+    },
+    {
+      "path": "postcss.config.mjs",
+      "fileCount": 1,
+      "size": 94
+    },
+    {
+      "path": ".agents",
+      "fileCount": 1,
+      "size": 0
+    },
+    {
+      "path": "work",
+      "fileCount": 1,
+      "size": 0
+    }
+  ],
+  "largestFiles": [
+    {
+      "path": "public/assets/photography/white-flowers.jpg",
+      "size": 4147624,
+      "mode": 33152,
+      "sha": "3214f23efb9d0f0ec3ac9966c719da0e72c229b4"
+    },
+    {
+      "path": "public/assets/pixel-room-v6.png",
+      "size": 2330071,
+      "mode": 33188,
+      "sha": "a4c6f3ff185d32864ddc38a650ea7362352b4b60"
+    },
+    {
+      "path": "public/assets/pixel-room-v7.png",
+      "size": 2264828,
+      "mode": 33188,
+      "sha": "9fe572659ca375e92b400a9045e55984947d1b99"
+    },
+    {
+      "path": "public/assets/pixel-room-v5.png",
+      "size": 2072885,
+      "mode": 33188,
+      "sha": "74dcb8dbb1f8281e21aa0ed5cbbd444d30aaff96"
+    },
+    {
+      "path": "public/assets/pixel-room-v3.png",
+      "size": 2030098,
+      "mode": 33188,
+      "sha": "091f468f6a11b9a06b3a343d66bd39d9b2c5f43a"
+    },
+    {
+      "path": "public/assets/pixel-room.png",
+      "size": 1994268,
+      "mode": 33188,
+      "sha": "215d38e861a579f7a08f2a2b4ab50eefbcc1ed0a"
+    },
+    {
+      "path": "public/assets/pixel-room-v4.png",
+      "size": 1946298,
+      "mode": 33188,
+      "sha": "e0fb2c08c59791a6927cd56ab8661ab801eccbf9"
+    },
+    {
+      "path": "public/assets/pixel-room-v2.png",
+      "size": 1912546,
+      "mode": 33188,
+      "sha": "be8a64e482f7d215b8a50a2fee7f638bc90975e4"
+    },
+    {
+      "path": "public/assets/photography/forest-waterfall.jpg",
+      "size": 1393599,
+      "mode": 33152,
+      "sha": "b11d4e41610f7532da571f180ea5f1636db92a47"
+    },
+    {
+      "path": "public/assets/photography/mountain-lake.jpg",
+      "size": 816809,
+      "mode": 33152,
+      "sha": "f866dbc365943508c1b1cf1e31d4bb258a0b8753"
+    }
+  ],
+  "files": [
+    {
+      "path": ".agents",
+      "size": 0,
+      "mode": 16877
+    },
+    {
+      "path": ".vercelignore",
+      "size": 138,
+      "mode": 33188,
+      "sha": "c6261305bd9a75b783eae6d3045cc209e59de079"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "size": 465,
+      "mode": 33188,
+      "sha": "44d5bed565a8dd284af3e17f3b16a1c752008d0e"
+    },
+    {
+      "path": "next-env.d.ts",
+      "size": 288,
+      "mode": 33188,
+      "sha": "915946e261450f4fb6aab2ca862c8b440b748240"
+    },
+    {
+      "path": "next.config.ts",
+      "size": 147,
+      "mode": 33188,
+      "sha": "4538095e9f41e922b035b39395ba8debd86efac4"
+    },
+    {
+      "path": "package-lock.json",
+      "size": 240916,
+      "mode": 33188,
+      "sha": "e34c716b0021a9f219d8d504bfbea5f6cd6c716a"
+    },
+    {
+      "path": "package.json",
+      "size": 736,
+      "mode": 33188,
+      "sha": "aa8fe67c71dd2f5c5fdc1cc1ef535c6aae591089"
+    },
+    {
+      "path": "postcss.config.mjs",
+      "size": 94,
+      "mode": 33188,
+      "sha": "8f8be689e9af58f80351df6e6b551146822f42a4"
+    },
+    {
+      "path": "public/assets/photography/bookshop-reading.jpg",
+      "size": 602910,
+      "mode": 33152,
+      "sha": "99d854c355256c06fba91cad290d5f8aba6f8b49"
+    },
+    {
+      "path": "public/assets/photography/flores-canon-av1.jpg",
+      "size": 45869,
+      "mode": 33188,
+      "sha": "427d8d38291d6a62fe91dfffd0e43ae7fe257335"
+    },
+    {
+      "path": "public/assets/photography/forest-waterfall.jpg",
+      "size": 1393599,
+      "mode": 33152,
+      "sha": "b11d4e41610f7532da571f180ea5f1636db92a47"
+    },
+    {
+      "path": "public/assets/photography/horse-woodland.jpg",
+      "size": 110026,
+      "mode": 33188,
+      "sha": "8b8ee112c588ca4bca2a2c70f96527a5f1c3a155"
+    },
+    {
+      "path": "public/assets/photography/libreria-canon-av1.jpg",
+      "size": 584131,
+      "mode": 33188,
+      "sha": "85f1b35523bf23994c2bcef2aa6412d993a330ee"
+    },
+    {
+      "path": "public/assets/photography/mountain-lake.jpg",
+      "size": 816809,
+      "mode": 33152,
+      "sha": "f866dbc365943508c1b1cf1e31d4bb258a0b8753"
+    },
+    {
+      "path": "public/assets/photography/perro-canon-av1.jpg",
+      "size": 342383,
+      "mode": 33188,
+      "sha": "b7ca86ec2a770f6d2238fc4f5778c9c0dcd5be40"
+    },
+    {
+      "path": "public/assets/photography/white-flowers.jpg",
+      "size": 4147624,
+      "mode": 33152,
+      "sha": "3214f23efb9d0f0ec3ac9966c719da0e72c229b4"
+    },
+    {
+      "path": "public/assets/pixel-cloud.png",
+      "size": 90865,
+      "mode": 33188,
+      "sha": "ed297bff5824a0f5a10dc01875f62e4f947badaf"
+    },
+    {
+      "path": "public/assets/pixel-room-v2.png",
+      "size": 1912546,
+      "mode": 33188,
+      "sha": "be8a64e482f7d215b8a50a2fee7f638bc90975e4"
+    },
+    {
+      "path": "public/assets/pixel-room-v3.png",
+      "size": 2030098,
+      "mode": 33188,
+      "sha": "091f468f6a11b9a06b3a343d66bd39d9b2c5f43a"
+    },
+    {
+      "path": "public/assets/pixel-room-v4.png",
+      "size": 1946298,
+      "mode": 33188,
+      "sha": "e0fb2c08c59791a6927cd56ab8661ab801eccbf9"
+    },
+    {
+      "path": "public/assets/pixel-room-v5.png",
+      "size": 2072885,
+      "mode": 33188,
+      "sha": "74dcb8dbb1f8281e21aa0ed5cbbd444d30aaff96"
+    },
+    {
+      "path": "public/assets/pixel-room-v6.png",
+      "size": 2330071,
+      "mode": 33188,
+      "sha": "a4c6f3ff185d32864ddc38a650ea7362352b4b60"
+    },
+    {
+      "path": "public/assets/pixel-room-v7.png",
+      "size": 2264828,
+      "mode": 33188,
+      "sha": "9fe572659ca375e92b400a9045e55984947d1b99"
+    },
+    {
+      "path": "public/assets/pixel-room.png",
+      "size": 1994268,
+      "mode": 33188,
+      "sha": "215d38e861a579f7a08f2a2b4ab50eefbcc1ed0a"
+    },
+    {
+      "path": "public/assets/room/vertigo-original-frame.png",
+      "size": 255021,
+      "mode": 33188,
+      "sha": "613034987289d32befca1fed21d9dd0d1f5a24f1"
+    },
+    {
+      "path": "public/cv/Lucio-Nigro-CV-EN.pdf",
+      "size": 3566,
+      "mode": 33188,
+      "sha": "c97a473dff9291bb69d336dea48c09ba3db0a1df"
+    },
+    {
+      "path": "public/cv/Lucio-Nigro-CV-ES.pdf",
+      "size": 45890,
+      "mode": 33188,
+      "sha": "085d23379d2e012c240f75ae939924ae1a3a97db"
+    },
+    {
+      "path": "public/file.svg",
+      "size": 391,
+      "mode": 33188,
+      "sha": "fb380eeffe87d50b597383664c02982964d0d28c"
+    },
+    {
+      "path": "public/globe.svg",
+      "size": 1035,
+      "mode": 33188,
+      "sha": "2eba23b01a46733bb8423e6d38ebf5f7e95abec5"
+    },
+    {
+      "path": "public/next.svg",
+      "size": 1375,
+      "mode": 33188,
+      "sha": "3f3e95622612b989c5bd6a03299a308c6f3c7e6b"
+    },
+    {
+      "path": "public/vercel.svg",
+      "size": 128,
+      "mode": 33188,
+      "sha": "cebb8852d58c8886be3e9051a26957f42bb82f1a"
+    },
+    {
+      "path": "public/window.svg",
+      "size": 385,
+      "mode": 33188,
+      "sha": "54c48e0daa6caa317fe1b4c419007fd93e948db9"
+    },
+    {
+      "path": "scripts/verify-seo.mjs",
+      "size": 4890,
+      "mode": 33188,
+      "sha": "49fd85fc1aef5204e99b8ec2df973421083e03b0"
+    },
+    {
+      "path": "src/app/about/page.tsx",
+      "size": 331,
+      "mode": 33188,
+      "sha": "8e7ad33af1eac7a01cef9b2cb1e4223ea48ad404"
+    },
+    {
+      "path": "src/app/apple-icon.png",
+      "size": 40394,
+      "mode": 33188,
+      "sha": "e4e5dcff5851eed908c55a67557ff6a25dd42629"
+    },
+    {
+      "path": "src/app/favicon.ico",
+      "size": 4414,
+      "mode": 33188,
+      "sha": "9ba83ae1dced77237f9d16aa847b338ca5b704fb"
+    },
+    {
+      "path": "src/app/globals.css",
+      "size": 16663,
+      "mode": 33188,
+      "sha": "afcf80afc69774f21bb20fc2ae92756a07184e54"
+    },
+    {
+      "path": "src/app/icon.png",
+      "size": 232781,
+      "mode": 33188,
+      "sha": "d6712ea28fec892d37fbf9809cbeb5f79bbfba89"
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "size": 1430,
+      "mode": 33188,
+      "sha": "3794e9783af43348a5b661102d682b7e6743b7e9"
+    },
+    {
+      "path": "src/app/page.tsx",
+      "size": 322,
+      "mode": 33188,
+      "sha": "ea1b463348b6c9df42f5395f535d39aa68f4f3c9"
+    },
+    {
+      "path": "src/app/photography/page.tsx",
+      "size": 361,
+      "mode": 33188,
+      "sha": "265e49618f1dc2e0589a5f022b9fd3c09d466e4e"
+    },
+    {
+      "path": "src/app/robots.ts",
+      "size": 246,
+      "mode": 33188,
+      "sha": "0f6385d8045aa036b9fcba0929663789672dd853"
+    },
+    {
+      "path": "src/app/sitemap.ts",
+      "size": 305,
+      "mode": 33188,
+      "sha": "d2661e88e9c61f7e62ec06c3d7bfcc98bba92811"
+    },
+    {
+      "path": "src/app/work/page.tsx",
+      "size": 326,
+      "mode": 33188,
+      "sha": "0a9420b3a2693e2f4da3b410efc572919978fbb1"
+    },
+    {
+      "path": "src/components/portfolio/content-pages.tsx",
+      "size": 10290,
+      "mode": 33188,
+      "sha": "2ba7700c120ff8a136fd87e57812702b039ef3b7"
+    },
+    {
+      "path": "src/components/portfolio/home-room.tsx",
+      "size": 6054,
+      "mode": 33188,
+      "sha": "bc1101723acc5362226ba10448ccbb91621d225a"
+    },
+    {
+      "path": "src/components/portfolio/site-shell.tsx",
+      "size": 5882,
+      "mode": 33188,
+      "sha": "3d7efc0587d22caca148f494675a46d0089820bf"
+    },
+    {
+      "path": "src/components/portfolio/structured-data.tsx",
+      "size": 289,
+      "mode": 33188,
+      "sha": "33e510f47f122153ba369b6417bb96c0dbcdde45"
+    },
+    {
+      "path": "src/components/room/atmosphere.tsx",
+      "size": 4451,
+      "mode": 33188,
+      "sha": "0ca6308e1e3c8b70c80fbca57229bf792eaeebfa"
+    },
+    {
+      "path": "src/components/spatial/live-surfaces.ts",
+      "size": 10943,
+      "mode": 33188,
+      "sha": "6068f8dbad3e94ec2e7a746841d99636b9df6eaa"
+    },
+    {
+      "path": "src/components/spatial/models.ts",
+      "size": 23066,
+      "mode": 33188,
+      "sha": "911cf0ee9a9479825750f33f20f2575d12d24725"
+    },
+    {
+      "path": "src/components/spatial/room-world.tsx",
+      "size": 22571,
+      "mode": 33188,
+      "sha": "1effe6c93467a361be010a06e928a242382ba2ec"
+    },
+    {
+      "path": "src/lib/portfolio-seo.ts",
+      "size": 2847,
+      "mode": 33188,
+      "sha": "f397cc0849b6bf4b5e9c7fb70105261b8f58552d"
+    },
+    {
+      "path": "src/lib/room-content.ts",
+      "size": 16696,
+      "mode": 33188,
+      "sha": "298860b82b76415bd252b245bbae95da8e513f15"
+    },
+    {
+      "path": "src/lib/site-profile.ts",
+      "size": 1475,
+      "mode": 33188,
+      "sha": "2286cc87330d14a7aa017df675bae963a031534c"
+    },
+    {
+      "path": "tsconfig.json",
+      "size": 670,
+      "mode": 33188,
+      "sha": "27dded29dc880f958ee67c9ed276fb2b1412f515"
+    },
+    {
+      "path": "work",
+      "size": 0,
+      "mode": 16877
+    }
+  ]
+}

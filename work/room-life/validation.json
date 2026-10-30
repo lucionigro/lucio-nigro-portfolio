@@ -1,0 +1,15 @@
+{
+  "pausedChangedPixels": 0,
+  "pausedDimensions": [
+    375,
+    1026
+  ],
+  "seoChecks": 45,
+  "build": "passed",
+  "lint": "passed",
+  "mobileWidths": [
+    320,
+    390
+  ],
+  "browserErrors": 0
+}

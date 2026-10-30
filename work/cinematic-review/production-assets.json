@@ -1,0 +1,56 @@
+[
+  {
+    "path": "/assets/photography/horse-woodland.jpg",
+    "status": 200,
+    "bytes": 110026,
+    "hashMatchesLocal": true
+  },
+  {
+    "path": "/assets/photography/forest-waterfall.jpg",
+    "status": 200,
+    "bytes": 1393599,
+    "hashMatchesLocal": true
+  },
+  {
+    "path": "/assets/photography/mountain-lake.jpg",
+    "status": 200,
+    "bytes": 816809,
+    "hashMatchesLocal": true
+  },
+  {
+    "path": "/assets/photography/libreria-canon-av1.jpg",
+    "status": 200,
+    "bytes": 584131,
+    "hashMatchesLocal": true
+  },
+  {
+    "path": "/assets/photography/flores-canon-av1.jpg",
+    "status": 200,
+    "bytes": 45869,
+    "hashMatchesLocal": true
+  },
+  {
+    "path": "/assets/photography/perro-canon-av1.jpg",
+    "status": 200,
+    "bytes": 342383,
+    "hashMatchesLocal": true
+  },
+  {
+    "path": "/assets/room/vertigo-original-frame.png",
+    "status": 200,
+    "bytes": 255021,
+    "hashMatchesLocal": true
+  },
+  {
+    "path": "/cv/Lucio-Nigro-CV-EN.pdf",
+    "status": 200,
+    "bytes": 3566,
+    "hashMatchesLocal": true
+  },
+  {
+    "path": "/cv/Lucio-Nigro-CV-ES.pdf",
+    "status": 200,
+    "bytes": 45890,
+    "hashMatchesLocal": true
+  }
+]

@@ -1,0 +1,60 @@
+[
+  {
+    "path": "/cv/Lucio-Nigro-CV-EN.pdf",
+    "status": 200,
+    "bytes": 3566,
+    "identical": true
+  },
+  {
+    "path": "/cv/Lucio-Nigro-CV-ES.pdf",
+    "status": 200,
+    "bytes": 45890,
+    "identical": true
+  },
+  {
+    "path": "/assets/room/vertigo-original-frame.png",
+    "status": 200,
+    "bytes": 255021,
+    "identical": true
+  },
+  {
+    "path": "/assets/photography/bookshop-reading.jpg",
+    "status": 200,
+    "bytes": 602910,
+    "identical": true
+  },
+  {
+    "path": "/assets/photography/forest-waterfall.jpg",
+    "status": 200,
+    "bytes": 1393599,
+    "identical": true
+  },
+  {
+    "path": "/assets/photography/horse-woodland.jpg",
+    "status": 200,
+    "bytes": 110026,
+    "identical": true
+  },
+  {
+    "path": "/assets/photography/mountain-lake.jpg",
+    "status": 200,
+    "bytes": 816809,
+    "identical": true
+  },
+  {
+    "path": "/assets/photography/perro-canon-av1.jpg",
+    "status": 200,
+    "bytes": 342383,
+    "identical": true
+  },
+  {
+    "path": "/assets/photography/white-flowers.jpg",
+    "status": 200,
+    "bytes": 4147624,
+    "identical": true
+  },
+  {
+    "apexStatus": 308,
+    "redirect": "https://www.lucionigro.com/"
+  }
+]
