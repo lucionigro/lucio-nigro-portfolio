@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Pause, Play, Plus, Minus, ArrowCounterClockwise } from "@phosphor-icons/react";
 import type { RoomItemId } from "@/lib/room-content";
+import { siteProfile } from "@/lib/site-profile";
 import { useLanguage, useRouteIntent } from "./site-shell";
 
 const World = dynamic(() => import("@/components/spatial/room-world"), { ssr: false });
@@ -45,7 +46,7 @@ export function HomeRoom() {
   const handleReady = useCallback((value: boolean) => setScene(value ? "ready" : "unavailable"), []);
   const sceneClass = scene === "ready" ? "is-ready" : scene === "unavailable" ? "is-fallback" : "is-loading";
   return <main id="content" className="room-home" data-paused={paused}>
-    <div className="home-intro"><h1><span className="title-mask"><span>{en ? "I’m Lucio." : "Soy Lucio."}</span></span><span className="title-mask home-title-secondary"><span>{en ? "This is my room." : "Esta es mi habitación."}</span></span></h1><div className="home-description"><p>{en ? "I build payment systems and AI agents. Away from the screen: film, music, books, and photography." : "Construyo sistemas de pagos y agentes de IA. Fuera de la pantalla: cine, música, libros y fotografía."}</p><p className="home-role">AI Backend Payments Engineer <span>·</span> Belong</p></div></div>
+    <div className="home-intro"><h1><span className="title-mask"><span>{en ? "I’m Lucio." : "Soy Lucio."}</span></span><span className="title-mask home-title-secondary"><span>{en ? "This is my room." : "Esta es mi habitación."}</span></span></h1><div className="home-description"><p>{en ? "I build payment systems and AI agents. Away from the screen: film, music, books, and photography." : "Construyo sistemas de pagos y agentes de IA. Fuera de la pantalla: cine, música, libros y fotografía."}</p><p className="home-role">{siteProfile.role} <span>·</span> Belong</p></div></div>
     <div className={`room-portal ${sceneClass} ${focus ? "is-departing" : ""}`}>
       <div className="room-stage" aria-hidden="true"><div className="stage-disc"/><div className="stage-orbit"/><div className="stage-shadow"/></div>
       {scene === "unavailable" && <div className="room-artwork"><Image src="/assets/pixel-room-v7.png" alt={en ? "Lucio’s illustrated room with a laptop, camera, guitar, television and books" : "La habitación ilustrada de Lucio con una computadora, cámara, guitarra, televisor y libros"} fill sizes="(max-width: 767px) 100vw, 1100px"/></div>}

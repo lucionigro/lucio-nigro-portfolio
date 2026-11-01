@@ -6,8 +6,8 @@
       "@id": "https://www.lucionigro.com/#person",
       "name": "Lucio Nigro",
       "url": "https://www.lucionigro.com/",
-      "jobTitle": "AI Backend Payments Engineer",
-      "description": "Software engineer working on payment systems and AI agents.",
+      "jobTitle": "Product Engineer",
+      "description": "Product Engineer working on payment systems and AI agents.",
       "worksFor": {
         "@type": "Organization",
         "name": "Belong"
@@ -35,8 +35,8 @@
       "@type": "ProfilePage",
       "@id": "https://www.lucionigro.com/#page",
       "url": "https://www.lucionigro.com/",
-      "name": "Lucio Nigro — Software Engineer",
-      "description": "Software engineer building payment systems and AI agents. Explore Lucio Nigro’s work, music, cinema, books, and film photography in an interactive 3D room.",
+      "name": "Lucio Nigro - Product Engineer",
+      "description": "Product Engineer building payment systems and AI agents. Explore Lucio Nigro’s work, music, cinema, books, and film photography in an interactive 3D room.",
       "inLanguage": "en",
       "isPartOf": {
         "@id": "https://www.lucionigro.com/#website"

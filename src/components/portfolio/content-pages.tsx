@@ -28,7 +28,7 @@ export function WorkPage() {
     { label: en ? "Development tools" : "Herramientas de desarrollo", value: "Claude Code, Codex" },
   ];
   return <main id="content" className="content-page work-page">
-    <div className="page-intro"><p className="page-kicker">{en ? "Software engineering" : "Ingeniería de software"}</p><h1>{en ? <>Payments.<br/>Systems. AI.</> : <>Pagos.<br/>Sistemas. IA.</>}</h1><div><p className="page-description">{work.description}</p>
+    <div className="page-intro"><p className="page-kicker">Product Engineer</p><h1>{en ? <>Payments.<br/>Systems. AI.</> : <>Pagos.<br/>Sistemas. IA.</>}</h1><div><p className="page-description">{work.description}</p>
       <div className="cv-actions"><a className="cv-download" href={`/cv/Lucio-Nigro-CV-${en ? "EN" : "ES"}.pdf`} download><DownloadSimple size={20}/>{en ? "Download CV" : "Descargar CV"}<span>PDF · {en ? "EN" : "ES"}</span></a><a className="cv-alternate" href={`/cv/Lucio-Nigro-CV-${en ? "ES" : "EN"}.pdf`} download>{en ? "En español" : "In English"}</a></div>
     </div></div>
     <section aria-labelledby="experience-title"><h2 id="experience-title" className="work-section-title">{en ? "Professional experience" : "Experiencia profesional"}</h2>
@@ -49,7 +49,7 @@ export function AboutPage() {
   const language = useLanguage(), en = language === "en";
   const items = getRoomItems(language);
   return <main id="content" className="content-page about-page">
-    <div className="page-intro"><p className="page-kicker">{en ? "A little more personal" : "Un poco más personal"}</p><h1>{en ? <>Away from<br/>the screen.</> : <>Fuera de<br/>la pantalla.</>}</h1><p className="page-description">{en ? "I’m Lucio Nigro, a software engineer working on payments and AI at Belong. These are a few things I keep coming back to." : "Soy Lucio Nigro, ingeniero de software especializado en pagos e IA en Belong. Estas son algunas cosas a las que siempre vuelvo."}</p></div>
+    <div className="page-intro"><p className="page-kicker">{en ? "A little more personal" : "Un poco más personal"}</p><h1>{en ? <>Away from<br/>the screen.</> : <>Fuera de<br/>la pantalla.</>}</h1><p className="page-description">{en ? "I’m Lucio Nigro, a Product Engineer working on payments and AI at Belong. These are a few things I keep coming back to." : "Soy Lucio Nigro, Product Engineer especializado en pagos e IA en Belong. Estas son algunas cosas a las que siempre vuelvo."}</p></div>
     <div className="personal-sections">{(["music", "cinema", "books"] as const).map((id, i) => {
       const item = items.find(item => item.id === id)!;
       return <section id={id} key={id} className="personal-section"><span className="section-number">0{i + 1}</span><div><p className="personal-label">{item.shortLabel}</p><h2>{item.title}</h2><p>{item.description}</p></div></section>;

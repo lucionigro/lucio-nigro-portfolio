@@ -2,8 +2,9 @@
 export const siteProfile = {
   url: "https://www.lucionigro.com/",
   name: "Lucio Nigro",
-  title: "Lucio Nigro — Software Engineer",
-  description: "Software engineer building payment systems and AI agents. Explore Lucio Nigro’s work, music, cinema, books, and film photography in an interactive 3D room.",
+  role: "Product Engineer",
+  title: "Lucio Nigro - Product Engineer",
+  description: "Product Engineer building payment systems and AI agents. Explore Lucio Nigro’s work, music, cinema, books, and film photography in an interactive 3D room.",
   email: "lnigrot@gmail.com",
   sameAs: ["https://github.com/lucionigro", "https://www.linkedin.com/in/lucionigro/"],
 };
@@ -14,8 +15,8 @@ export const profileSchema = {
     {
       "@type": "Person", "@id": id("person"),
       name: siteProfile.name, url: siteProfile.url,
-      jobTitle: "AI Backend Payments Engineer",
-      description: "Software engineer working on payment systems and AI agents.",
+      jobTitle: siteProfile.role,
+      description: "Product Engineer working on payment systems and AI agents.",
       worksFor: { "@type": "Organization", name: "Belong" },
       email: siteProfile.email, sameAs: siteProfile.sameAs,
     },

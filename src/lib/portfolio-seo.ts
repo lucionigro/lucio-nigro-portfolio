@@ -4,8 +4,8 @@ import { getRoomItems } from "./room-content";
 
 export const routeInfo = {
   home: { path: "/", title: siteProfile.title, description: siteProfile.description },
-  work: { path: "/work", title: "Work — Lucio Nigro", description: "Lucio Nigro’s software engineering experience: payment infrastructure, capital markets settlement, and AI agents at Belong, Banco Hipotecario, and QServices." },
-  about: { path: "/about", title: "About — Lucio Nigro", description: "Meet Lucio Nigro, a software engineer working on payments and AI. Music, cinema, books, and the interests behind his interactive room." },
+  work: { path: "/work", title: "Work — Lucio Nigro", description: "Lucio Nigro’s product engineering experience: payment infrastructure, capital markets settlement, and AI agents at Belong, Banco Hipotecario, and QServices." },
+  about: { path: "/about", title: "About — Lucio Nigro", description: "Meet Lucio Nigro, a Product Engineer working on payments and AI. Music, cinema, books, and the interests behind his interactive room." },
   photography: { path: "/photography", title: "Photography — Lucio Nigro", description: "Film photographs by Lucio Nigro: forests, waterfalls, mountain lakes, a bookshop, flowers, and everyday moments, photographed with a Canon AV-1." },
 };
 export type PortfolioRoute = keyof typeof routeInfo;

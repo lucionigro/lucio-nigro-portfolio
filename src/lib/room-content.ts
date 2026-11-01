@@ -1,3 +1,5 @@
+import { siteProfile } from "./site-profile";
+
 export type RoomItemId = "work" | "cinema" | "music" | "books" | "photo";
 
 export type RoomGalleryImage = {
@@ -39,11 +41,11 @@ export const roomItems: RoomItem[] = [
     objectLabel: "Abrir la MacBook",
     title: "Experiencia profesional",
     description:
-      "Desarrollador de software especializado en pagos, con experiencia en la evolución de motores de pago y la automatización de procesos críticos. Mi trayectoria abarca tanto los pagos digitales como la liquidación de operaciones del mercado de capitales. Actualmente diseño e implemento soluciones basadas en IA y arquitecturas de agentes para automatizar procesos operativos y reducir tareas manuales.",
+      "Product Engineer especializado en pagos, con experiencia en la evolución de motores de pago y la automatización de procesos críticos. Mi trayectoria abarca tanto los pagos digitales como la liquidación de operaciones del mercado de capitales. Actualmente diseño e implemento soluciones basadas en IA y arquitecturas de agentes para automatizar procesos operativos y reducir tareas manuales.",
     experience: [
       {
         company: "Belong",
-        role: "AI Backend Payments Engineer",
+        role: siteProfile.role,
         period: "ene. 2026 - actualidad",
         projectTitles: ["Motor de pagos", "Migración de proveedor", "Automatización con IA"],
         focus: ["Motores de pago", "Dwolla → J.P. Morgan", "Agentes de IA"],
@@ -141,11 +143,11 @@ const english: Record<RoomItemId, Partial<RoomItem>> = {
     objectLabel: "Open the MacBook",
     title: "Professional experience",
     description:
-      "I'm a software developer specializing in payments, with experience evolving payment engines and automating critical processes. My work spans digital payments and capital markets settlement. Today, I design and build AI systems and agent architectures that automate operations and reduce manual work.",
+      "I'm a Product Engineer specializing in payments, with experience evolving payment engines and automating critical processes. My work spans digital payments and capital markets settlement. Today, I design and build AI systems and agent architectures that automate operations and reduce manual work.",
     experience: [
       {
         company: "Belong",
-        role: "AI Backend Payments Engineer",
+        role: siteProfile.role,
         period: "Jan 2026 - Present",
         projectTitles: ["Core payment operations", "Payment provider migration", "AI-powered payment requests"],
         focus: ["Payment infrastructure", "Dwolla → J.P. Morgan", "AI agents"],
@@ -252,7 +254,7 @@ export const interfaceText = {
     contact: "Get in touch",
     github: "GitHub",
     linkedin: "LinkedIn",
-    title: "Lucio Nigro — Software Engineer",
+    title: "Lucio Nigro - Product Engineer",
     description:
       "Explore Lucio Nigro's interactive 3D room: software engineering, cinema, music, books, and film photography.",
   },
@@ -280,7 +282,7 @@ export const interfaceText = {
     contact: "Hablemos",
     github: "GitHub",
     linkedin: "LinkedIn",
-    title: "Lucio Nigro — Ingeniero de software",
+    title: "Lucio Nigro - Product Engineer",
     description:
       "Explorá la habitación 3D de Lucio Nigro: desarrollo de software, cine, música, libros y fotografía analógica.",
   },
