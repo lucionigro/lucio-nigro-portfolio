@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteShell } from "@/components/portfolio/site-shell";
 import { siteProfile } from "@/lib/site-profile";
+import { portfolioSocialImage } from "@/lib/portfolio-seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,11 +26,11 @@ export const metadata: Metadata = {
     type: "website", url: siteProfile.url, siteName: siteProfile.name,
     title: siteProfile.title, description: siteProfile.description,
     locale: "en_US", alternateLocale: ["es_AR"],
-    images: [{ url: "/assets/pixel-room-v7.png", alt: "Lucio’s original illustrated room" }],
+    images: [portfolioSocialImage],
   },
   twitter: {
     card: "summary_large_image", title: siteProfile.title,
-    description: siteProfile.description, images: ["/assets/pixel-room-v7.png"],
+    description: siteProfile.description, images: [portfolioSocialImage.url],
   },
 };
 

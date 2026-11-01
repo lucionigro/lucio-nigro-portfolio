@@ -103,7 +103,8 @@ export default function RoomWorld({
     });
     pmrem.dispose();
     const camera = new T.PerspectiveCamera(35, 1, 0.1, 80);
-    camera.position.set(8, 6.4, 9.5);
+    const homeCamera = new T.Vector3(8.3, 6.4, 12.4);
+    camera.position.copy(homeCamera);
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.target.set(0, 1.15, 0);
     controls.enablePan = false;
@@ -124,11 +125,11 @@ export default function RoomWorld({
     rig.add(shell);
     const objects = buildObjects();
     const placements: Record<RoomItemId, [number, number, number]> = {
-      work: [0, 1.1, -0.65],
-      photo: [-0.88, 1.1, -0.13],
-      music: [2.54, 0.02, 1.44],
-      books: [-2.57, 2.08, -1.53],
-      cinema: [-0.35, 1.82, -2.02],
+      work: [-.2, 1.1, -0.65],
+      photo: [-1.25, 1.1, -0.13],
+      music: [3.7, 0.02, 1.34],
+      books: [-3.92, 2.08, -1.53],
+      cinema: [-.35, 1.82, -2.02],
     };
     const scales: Record<RoomItemId, number> = {
       work: 0.87,
@@ -344,7 +345,7 @@ export default function RoomWorld({
       const target = id ? dimensions.get(id)!.center : new T.Vector3(0, 1.15, 0);
       transition.to(controls.target, { x: target.x, y: target.y, z: target.z }, 0);
       // Two camera legs make a shallow dolly arc, rather than a straight zoom.
-      const end = id ? new T.Vector3(3.1, target.y + 1.65, 5.5) : new T.Vector3(8, 6.4, 9.5);
+      const end = id ? new T.Vector3(3.1, target.y + 1.65, 5.5) : homeCamera.clone();
       transition.to(camera.position, {
         x: (camera.position.x + end.x) * 0.5 + 0.35,
         y: (camera.position.y + end.y) * 0.5 + 0.22,
@@ -439,7 +440,7 @@ export default function RoomWorld({
       );
       renderer.setSize(width, height);
       camera.aspect = width / height;
-      camera.zoom = width < 600 ? Math.min(.86, width / height * .86) : 1.04;
+      camera.zoom = width < 600 ? Math.min(.73, width / height * .73) : .96;
       camera.updateProjectionMatrix();
       draw();
     });
@@ -546,7 +547,7 @@ export default function RoomWorld({
       gsap.killTweensOf(camera.position);
       const offset = camera.position.clone().sub(controls.target);
       const distance = T.MathUtils.clamp(offset.length() * (direction > 0 ? .78 : 1.28), controls.minDistance, controls.maxDistance);
-      const destination = direction === 0 ? new T.Vector3(8, 6.4, 9.5) : controls.target.clone().add(offset.setLength(distance));
+      const destination = direction === 0 ? homeCamera.clone() : controls.target.clone().add(offset.setLength(distance));
       if (direction === 0) controls.target.set(0, 1.15, 0);
       animate(camera.position, {x: destination.x, y: destination.y, z: destination.z, duration: noMotion() ? 0 : .35});
     };

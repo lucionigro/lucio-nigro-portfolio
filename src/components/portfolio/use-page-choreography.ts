@@ -22,7 +22,7 @@ export function usePageChoreography(root: RefObject<HTMLDivElement | null>, path
           entrance.fromTo(".page-intro, .photography-heading", { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: .85, clearProps: "all" });
         }
         // Natural scrolling stays intact. Reveals are local to each content block.
-        const blocks = host.querySelectorAll(".career-entry, .personal-section, .work-details, .education-section, .photograph-grid figure");
+        const blocks = host.querySelectorAll(".career-entry, .personal-section, .work-details, .education-section, .photograph-stage");
         if (!blocks.length) return;
         gsap.set(blocks, { y: 30, opacity: 0 });
         observer = new IntersectionObserver(contextSafe, { threshold: .06 });

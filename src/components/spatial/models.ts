@@ -185,15 +185,15 @@ function laptop() {
   piece(obj, lid, [0, 0.65, -0.12]);
   return obj;
 }
-function faceLabel(parent: T.Object3D, text: string, width: number, height: number, position: [number, number, number], dark = false, italic = false) {
+function faceLabel(parent: T.Object3D, text: string, width: number, height: number, position: [number, number, number], dark = false, italic = false, transparent = false) {
   const canvas = document.createElement("canvas"); canvas.width = 768; canvas.height = 160;
   const c = canvas.getContext("2d")!;
-  c.fillStyle = dark ? "#161917" : "#bec2bd"; c.fillRect(0, 0, 768, 160);
+  if (!transparent) { c.fillStyle = dark ? "#161917" : "#bec2bd"; c.fillRect(0, 0, 768, 160); }
   c.fillStyle = dark ? "#e4e5dd" : "#111513";
   c.font = `${italic ? "italic " : ""}bold ${text.length > 14 ? 55 : 110}px ${italic ? "serif" : "sans-serif"}`;
   c.textAlign = "center"; c.textBaseline = "middle"; c.fillText(text, 384, 86);
   const map = new T.CanvasTexture(canvas); map.colorSpace = T.SRGBColorSpace;
-  const label = new T.Mesh(new T.PlaneGeometry(width, height), new T.MeshStandardMaterial({ map, roughness: .45, metalness: .3 }));
+  const label = new T.Mesh(new T.PlaneGeometry(width, height), new T.MeshStandardMaterial({ map, transparent, roughness: .45, metalness: .3 }));
   label.position.set(...position); parent.add(label); return label;
 }
 function camera() {
@@ -262,36 +262,52 @@ function camera() {
 }
 function guitar() {
   const obj = object(); obj.root.name = "Squier Classic Vibe ’50s Telecaster";
-  const blonde = new T.MeshPhysicalMaterial({ color: "#d5a34f", map: mats.wood.map, bumpMap: mats.wood.bumpMap, bumpScale: .004, roughness: .27, clearcoat: .85, clearcoatRoughness: .2 });
-  const maple = new T.MeshPhysicalMaterial({ color: "#cb9954", map: mats.wood.map, roughness: .32, clearcoat: .7 });
-  const nickel = new T.MeshStandardMaterial({ color: "#bfc3bc", metalness: .86, roughness: .24 });
-  const guard = new T.MeshStandardMaterial({ color: "#121512", roughness: .38 });
-  // A Tele has a broad bass shoulder and one recessed treble cutaway.
-  // Keep the perimeter almost square-edged: a large bevel makes it look inflated.
+  // Pale grain keeps the lacquer's butterscotch colour instead of multiplying
+  // it by the dark furniture texture. Both woods run along the strings.
+  const guitarGrain = texture(c => {
+    c.fillStyle = "#fff8e9"; c.fillRect(0, 0, 768, 480);
+    for (let i = 0; i < 160; i++) {
+      const x = (i * 127.31) % 768;
+      c.strokeStyle = i % 3 ? "rgba(140,96,35,.045)" : "rgba(255,255,255,.18)";
+      c.lineWidth = .5 + i % 3;
+      c.beginPath(); c.moveTo(x, 0);
+      c.bezierCurveTo(x + Math.sin(i) * 5, 160, x - Math.cos(i) * 4, 320, x + 1, 480);
+      c.stroke();
+    }
+  });
+  const blonde = new T.MeshPhysicalMaterial({ color: "#f5b332", map: guitarGrain, roughness: .28, clearcoat: 1, clearcoatRoughness: .18 });
+  const maple = new T.MeshPhysicalMaterial({ color: "#e6aa50", map: guitarGrain, roughness: .31, clearcoat: .8 });
+  const nickel = new T.MeshStandardMaterial({ color: "#e2e4df", metalness: .92, roughness: .2 });
+  const guard = new T.MeshStandardMaterial({ color: "#0c0d0b", roughness: .29 });
+  // Traced from the supplied front view: rounded flat heel, broad bass
+  // shoulder and a single deep treble cutaway, with a thin lacquered edge.
   const outline = new T.Shape(); outline.moveTo(0, .035);
-  outline.bezierCurveTo(-.31, .018, -.54, .12, -.55, .34);
-  outline.bezierCurveTo(-.57, .52, -.43, .62, -.395, .74);
-  outline.bezierCurveTo(-.365, .84, -.455, .96, -.375, 1.075);
-  outline.bezierCurveTo(-.31, 1.175, -.18, 1.175, -.095, 1.125);
-  outline.lineTo(.095, 1.125);
-  outline.lineTo(.105, 1.015);
-  outline.bezierCurveTo(.115, .905, .205, .87, .27, .94);
-  outline.bezierCurveTo(.31, .985, .315, 1.045, .355, 1.06);
-  outline.bezierCurveTo(.43, 1.06, .455, .945, .412, .835);
-  outline.bezierCurveTo(.375, .735, .39, .66, .465, .565);
-  outline.bezierCurveTo(.6, .39, .565, .22, .455, .125);
-  outline.bezierCurveTo(.35, .035, .16, .025, 0, .035); outline.closePath();
+  outline.bezierCurveTo(-.27, .035, -.47, .055, -.48, .29);
+  outline.bezierCurveTo(-.49, .48, -.35, .65, -.34, .77);
+  outline.bezierCurveTo(-.33, .9, -.44, 1.055, -.39, 1.17);
+  outline.bezierCurveTo(-.34, 1.3, -.2, 1.27, -.1, 1.215);
+  outline.bezierCurveTo(-.07, 1.2, -.08, 1.26, -.075, 1.29);
+  outline.lineTo(.078, 1.29); outline.lineTo(.082, 1.11);
+  outline.bezierCurveTo(.15, .99, .25, 1.035, .29, 1.16);
+  outline.bezierCurveTo(.32, 1.29, .405, 1.28, .421, 1.175);
+  outline.bezierCurveTo(.443, 1.055, .35, .91, .36, .79);
+  outline.bezierCurveTo(.365, .64, .5, .47, .48, .285);
+  outline.bezierCurveTo(.47, .065, .29, .035, 0, .035); outline.closePath();
   const body = new T.Mesh(new T.ExtrudeGeometry(outline, { depth: .15, bevelEnabled: true, bevelSegments: 4, curveSegments: 32, steps: 1, bevelSize: .009, bevelThickness: .009 }), blonde);
   body.castShadow = true; body.receiveShadow = true; obj.root.add(body); piece(obj, body, [-.3, 0, -.1]);
-  const pick = new T.Shape(); pick.moveTo(-.1, 1.08); pick.lineTo(-.1, .95); pick.lineTo(.11, .95); pick.lineTo(.12, 1.07);
-  pick.bezierCurveTo(.13, .88, .22, .79, .32, .9);
-  pick.bezierCurveTo(.4, .92, .36, .7, .29, .62);
-  pick.lineTo(.17, .59); pick.lineTo(-.19, .59);
-  pick.bezierCurveTo(-.32, .59, -.38, .7, -.33, .87);
-  pick.bezierCurveTo(-.39, 1.06, -.23, 1.14, -.1, 1.08);
+  const pick = new T.Shape(); pick.moveTo(-.083, 1.17);
+  pick.lineTo(-.083, 1.015); pick.lineTo(.085, 1.015); pick.lineTo(.085, 1.14);
+  pick.bezierCurveTo(.16, .99, .27, 1.035, .31, 1.17);
+  pick.bezierCurveTo(.34, 1.27, .39, 1.25, .399, 1.16);
+  pick.bezierCurveTo(.42, 1.045, .33, .91, .338, .8);
+  pick.bezierCurveTo(.34, .735, .365, .695, .375, .665);
+  pick.lineTo(.14, .665); pick.lineTo(.14, .69); pick.lineTo(-.14, .69);
+  pick.lineTo(-.14, .655); pick.lineTo(-.24, .655);
+  pick.bezierCurveTo(-.31, .66, -.28, .89, -.24, .99);
+  pick.bezierCurveTo(-.2, 1.1, -.13, 1.19, -.083, 1.17); pick.closePath();
   const pickguard = new T.Mesh(new T.ExtrudeGeometry(pick, { depth: .008, bevelEnabled: false, curveSegments: 20 }), guard);
   pickguard.position.z = .163; obj.root.add(pickguard); piece(obj, pickguard, [.25, 0, .3]);
-  const neck = new T.Group(); neck.position.set(0, .98, .13); obj.root.add(neck);
+  const neck = new T.Group(); neck.position.set(0, 1.045, .13); obj.root.add(neck);
   box(neck, [.145, 1.43, .075], [0, .68, 0], maple, .025);
   box(neck, [.153, 1.4, .02], [0, .68, .044], maple, .008);
   const scale = 2.04;
@@ -304,18 +320,22 @@ function guitar() {
     }
   }
   box(neck, [.16, .022, .05], [0, 1.397, .038], mats.cream, .003);
-  const headShape = new T.Shape(); headShape.moveTo(-.07, 1.4); headShape.lineTo(-.092, 1.81);
-  headShape.bezierCurveTo(-.1, 1.92, .075, 1.93, .12, 1.84);
-  headShape.bezierCurveTo(.165, 1.75, .095, 1.66, .075, 1.6); headShape.lineTo(.07, 1.4); headShape.closePath();
+  const headShape = new T.Shape(); headShape.moveTo(-.07, 1.4);
+  headShape.bezierCurveTo(-.07, 1.43, -.13, 1.43, -.115, 1.48);
+  headShape.lineTo(-.035, 1.84);
+  headShape.bezierCurveTo(-.01, 1.97, .13, 1.97, .14, 1.86);
+  headShape.bezierCurveTo(.15, 1.8, .09, 1.8, .095, 1.74);
+  headShape.bezierCurveTo(.16, 1.63, .07, 1.57, .07, 1.4); headShape.closePath();
   const head = new T.Mesh(new T.ExtrudeGeometry(headShape, { depth: .065, bevelEnabled: true, bevelSize: .012, bevelThickness: .008, bevelSegments: 3 }), maple);
   head.position.z = -.025; head.castShadow = true; neck.add(head);
   for (let i = 0; i < 6; i++) {
-    const y = 1.47 + i * .067;
-    cylinder(neck, .019, .022, [-.058, y, .067], nickel, true);
-    box(neck, [.06, .012, .018], [-.105, y, .015], nickel, .004);
-    cylinder(neck, .021, .016, [-.139, y, .015], nickel, true);
+    const y = 1.49 + i * .067, x = -.078 + i * .015;
+    cylinder(neck, .017, .022, [x, y, .067], nickel, true);
+    box(neck, [.065, .01, .014], [x - .047, y, .015], nickel, .004);
+    const key = cylinder(neck, .024, .014, [x - .083, y, .015], nickel, true);
+    key.scale.x = .7;
   }
-  faceLabel(neck, "Squier", .12, .032, [.028, 1.73, .054], false, true).rotation.z = -.08;
+  faceLabel(neck, "Squier", .15, .032, [.055, 1.64, .054], false, true, true).rotation.z = Math.PI / 2;
   piece(obj, neck, [0, .65, 0]);
   const hardware = new T.Group(); hardware.position.z = .18; obj.root.add(hardware);
   // Ashtray bridge plate, three barrel saddles, angled bridge single-coil.
@@ -324,27 +344,27 @@ function guitar() {
   const bridgePickup = box(hardware, [.23, .055, .028], [0, .48, .027], guard, .02); bridgePickup.rotation.z = -.26;
   for (let i = 0; i < 6; i++) cylinder(hardware, .008, .006, [-.089 + i * .036, .48 + (.089 - i * .036) * .25, .047], nickel, true);
   for (let i = 0; i < 3; i++) {
-    const saddle = cylinder(hardware, .018, .075, [-.082 + i * .082, .31, .035], mats.brass);
+    const saddle = cylinder(hardware, .018, .075, [-.082 + i * .082, .31, .035], nickel);
     saddle.rotation.z = Math.PI / 2;
     box(hardware, [.007, .11, .007], [-.082 + i * .082, .28, .04], nickel, .002);
   }
-  box(hardware, [.215, .055, .026], [0, .82, .005], nickel, .025);
-  box(hardware, [.11, .38, .018], [.35, .4, 0], nickel, .045);
-  for (const y of [.28, .45]) {
-    cylinder(hardware, .035, .035, [.35, y, .028], nickel, true);
+  box(hardware, [.215, .055, .026], [0, .965, .005], nickel, .025);
+  box(hardware, [.11, .38, .018], [.285, .43, 0], nickel, .045);
+  for (const y of [.31, .49]) {
+    cylinder(hardware, .035, .035, [.285, y, .028], nickel, true);
     for (let i = 0; i < 16; i++) {
       const angle = i * Math.PI / 8;
-      box(hardware, [.004, .006, .023], [.35 + Math.cos(angle) * .035, y + Math.sin(angle) * .035, .03], mats.black, .001);
+      box(hardware, [.004, .006, .023], [.285 + Math.cos(angle) * .035, y + Math.sin(angle) * .035, .03], mats.black, .001);
     }
   }
-  box(hardware, [.012, .055, .012], [.35, .54, .038], guard, .004).rotation.z = -.3;
-  for (const [x, y] of [[-.27,.91],[-.29,.69],[.24,.65],[.26,.87],[.15,1.02]]) cylinder(hardware, .007, .004, [x, y, -.003], nickel, true);
+  box(hardware, [.012, .055, .012], [.285, .565, .038], guard, .004).rotation.z = -.3;
+  for (const [x, y] of [[-.115,1.13],[-.255,.68],[.18,.68],[.36,.69],[.35,1.19]]) cylinder(hardware, .007, .004, [x, y, .001], nickel, true);
   // Six continuous strings from the bridge to the inline tuners.
   const strings: { geometry: T.BufferGeometry; x: number }[] = [];
   for (let i = 0; i < 6; i++) {
     const x = -.054 + i * .0216;
-    const points = Array.from({length: 25}, (_, n) => new T.Vector3(x, .3 + n / 24 * 2.075, .052 - n / 24 * .03));
-    points.push(new T.Vector3(-.058, 2.45 + i * .067, .017));
+    const points = Array.from({length: 25}, (_, n) => new T.Vector3(x, .3 + n / 24 * 2.14, .053 - n / 24 * .03));
+    points.push(new T.Vector3(-.078 + i * .015, 2.535 + i * .067, .017));
     const geometry = new T.BufferGeometry().setFromPoints(points);
     strings.push({geometry, x});
     hardware.add(new T.Line(geometry, new T.LineBasicMaterial({ color: "#b8b7a6" })));
@@ -365,8 +385,8 @@ function guitar() {
   piece(obj, hardware, [.35, 0, .42]);
   const instrument = new T.Group();
   for (const child of [...obj.root.children]) instrument.add(child);
-  instrument.scale.set(.66, 1.06, .46);
-  neck.scale.x = 1.2;
+  instrument.scale.set(.96, 1.06, .9);
+  neck.scale.x = 1.08;
   obj.root.add(instrument);
   // Grounded on a stand: no floating or whole-instrument wobble.
   const stand = new T.Group(); obj.root.add(stand);
@@ -532,22 +552,22 @@ export function buildRoom() {
   prepareSurfaceTextures();
   const surfaces = roomSurfaces();
   const shell = new T.Group();
-  box(shell, [6.7, 0.16, 4.5], [0, -0.15, 0], mats.edge, 0.04);
-  const floor = new T.Mesh(new T.PlaneGeometry(6.5, 4.28), surfaces.floor);
+  box(shell, [9.4, 0.16, 4.5], [0, -0.15, 0], mats.edge, 0.04);
+  const floor = new T.Mesh(new T.PlaneGeometry(9.2, 4.28), surfaces.floor);
   floor.rotation.x = -Math.PI / 2;
   floor.position.set(0, -0.04, 0.02);
   floor.receiveShadow = true;
   shell.add(floor);
-  box(shell, [6.7, 3.5, 0.12], [0, 1.66, -2.23], surfaces.wall);
-  box(shell, [0.12, 3.5, 4.5], [-3.3, 1.66, 0], surfaces.wall);
-  box(shell, [6.7, 0.12, 0.08], [0, 0.04, -2.14], mats.edge);
-  box(shell, [0.08, 0.12, 4.4], [-3.21, 0.04, 0], mats.edge);
+  box(shell, [9.4, 3.5, 0.12], [0, 1.66, -2.23], surfaces.wall);
+  box(shell, [0.12, 3.5, 4.5], [-4.65, 1.66, 0], surfaces.wall);
+  box(shell, [9.4, 0.12, 0.08], [0, 0.04, -2.14], mats.edge);
+  box(shell, [0.08, 0.12, 4.4], [-4.56, 0.04, 0], mats.edge);
   // Desk, shelf, window and lamps echo the original room's layout.
-  box(shell, [3.15, 0.13, 1.2], [-0.1, 1.02, -0.65], mats.wood, 0.025);
-  for (const x of [-1.5, 1.3])
+  box(shell, [3.45, 0.13, 1.2], [-0.35, 1.02, -0.65], mats.wood, 0.025);
+  for (const x of [-1.9, 1.2])
     for (const z of [-1.1, -0.2])
       box(shell, [0.095, 1, 0.095], [x, 0.46, z], mats.edge);
-  const shelfX = -2.58;
+  const shelfX = -3.93;
   for (const x of [shelfX - 0.53, shelfX + 0.53])
     box(shell, [0.095, 2.65, 0.68], [x, 1.3, -1.59], mats.edge);
   for (const y of [0.02, 0.69, 1.36, 2.03, 2.64])
@@ -571,13 +591,13 @@ export function buildRoom() {
       x += width / 2 + 0.012;
     });
   }
-  const rug = new T.Mesh(new T.PlaneGeometry(3.55, 1.7), surfaces.rug);
+  const rug = new T.Mesh(new T.PlaneGeometry(4.2, 1.7), surfaces.rug);
   rug.rotation.x = -Math.PI / 2;
-  rug.position.set(0.15, -0.035, 1.05);
+  rug.position.set(-.25, -0.035, 1.05);
   rug.receiveShadow = true;
   shell.add(rug);
   const window = new T.Group();
-  window.position.set(1.85, 2.02, -2.16);
+  window.position.set(3, 2.02, -2.16);
   shell.add(window);
   const city = cityWindow(); city.init();
   city.root.position.z = -0.02;
@@ -590,7 +610,7 @@ export function buildRoom() {
   for (const y of [-0.82, 0, 0.82]) box(window, [1.32, 0.05, 0.08], [0, y, 0.12], mats.edge);
   box(window, [1.92, 0.1, 0.36], [0, -1.08, 0.12], mats.wood, 0.012);
   const lamp = new T.Group();
-  lamp.position.set(-1.22, 1.09, -0.78);
+  lamp.position.set(-1.62, 1.09, -0.78);
   shell.add(lamp);
   cylinder(lamp, 0.2, 0.028, [0, 0, 0], mats.brass);
   cylinder(lamp, 0.1, 0.02, [0, 0.022, 0], mats.edge);
@@ -616,15 +636,15 @@ export function buildRoom() {
   bulb.position.set(0.22, -0.02, 0.04);
   neck.add(bulb);
   const cord = new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3([
-    new T.Vector3(-1.22, 1.1, -0.7),
-    new T.Vector3(-0.85, 1.095, -0.48),
-    new T.Vector3(-0.35, 1.1, -0.95),
-    new T.Vector3(0.2, 1.09, -1.15),
+    new T.Vector3(-1.62, 1.1, -0.7),
+    new T.Vector3(-1.25, 1.095, -0.48),
+    new T.Vector3(-.75, 1.1, -0.95),
+    new T.Vector3(-.2, 1.09, -1.15),
   ]), 28, 0.008, 6, false), mats.rubber);
   cord.castShadow = true;
   shell.add(cord);
   const deck = new T.Group();
-  deck.position.set(2.28, 0, 0.48);
+  deck.position.set(1.9, 0, 1.25);
   shell.add(deck);
   box(deck, [0.96, 0.58, 0.76], [0, 0.29, 0], mats.edge, 0.02);
   box(deck, [1.04, 0.07, 0.84], [0, 0.62, 0], mats.wood, 0.016);
@@ -650,14 +670,14 @@ export function buildRoom() {
   const lid = box(deck, [1.02, 0.018, 0.8], [0, 0.86, -0.28], lidMat, 0.006);
   lid.rotation.x = -1.05;
   const frame = new T.Group();
-  frame.position.set(-1.35, 2.72, -2.12);
+  frame.position.set(-2.55, 2.72, -2.12);
   shell.add(frame);
   box(frame, [0.72, 0.9, 0.04], [0, 0, 0], mats.edge, 0.012);
   const print = new T.Mesh(new T.PlaneGeometry(0.6, 0.76), new T.MeshStandardMaterial({ map: surfaces.print, roughness: 0.55 }));
   print.position.z = 0.024;
   frame.add(print);
   const plant = new T.Group();
-  plant.position.set(2.95, -0.045, -0.7);
+  plant.position.set(4.25, -0.045, -.75);
   plant.scale.setScalar(1.65);
   shell.add(plant);
   cylinder(plant, 0.09, 0.07, [0, 0.04, 0], mats.edge);
@@ -669,10 +689,10 @@ export function buildRoom() {
     leaf.castShadow = true;
     plant.add(leaf);
   });
-  contact(shell, 3.4, 1.5, [-0.1, -0.028, -0.55], surfaces.shade, 0.34);
-  contact(shell, 0.9, 0.7, [2.28, -0.028, 0.48], surfaces.shade, 0.32);
+  contact(shell, 3.7, 1.5, [-.35, -0.028, -0.55], surfaces.shade, 0.34);
+  contact(shell, 0.9, 0.7, [1.9, -0.028, 1.25], surfaces.shade, 0.32);
   contact(shell, 1.3, 0.8, [shelfX, -0.028, -1.5], surfaces.shade, 0.28);
-  contact(shell, 0.7, 0.45, [2.5, -0.028, 1.35], surfaces.shade, 0.26);
+  contact(shell, 0.7, 0.45, [3.7, -0.028, 1.25], surfaces.shade, 0.26);
   return { root: shell, update: (seconds: number) => {
     const daylight = city.update(seconds);
     record.rotation.y = -seconds * Math.PI * 2 * (33 / 60);
