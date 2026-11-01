@@ -1,6 +1,7 @@
 import * as T from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { terminalSurface, vertigoSurface, cityWindow } from "./live-surfaces";
+import { batchStaticMeshes } from "./batch-static-meshes";
 import type { RoomItemId } from "@/lib/room-content";
 
 export type RoomObject = {
@@ -462,13 +463,18 @@ function cinema() {
   return obj;
 }
 export function buildObjects(): Record<RoomItemId, RoomObject> {
-  return {
+  const objects = {
     work: laptop(),
     photo: camera(),
     music: guitar(),
     books: books(),
     cinema: cinema(),
   };
+  // Each assembled part can still move as a unit during navigation.
+  for (const object of Object.values(objects)) {
+    for (const { node } of object.pieces) if (node instanceof T.Group) batchStaticMeshes(node, new Set());
+  }
+  return objects;
 }
 function roomSurfaces() {
   const plaster = texture((c) => {
@@ -693,6 +699,7 @@ export function buildRoom() {
   contact(shell, 0.9, 0.7, [1.9, -0.028, 1.25], surfaces.shade, 0.32);
   contact(shell, 1.3, 0.8, [shelfX, -0.028, -1.5], surfaces.shade, 0.28);
   contact(shell, 0.7, 0.45, [3.7, -0.028, 1.25], surfaces.shade, 0.26);
+  batchStaticMeshes(shell, new Set([window, record]));
   return { root: shell, update: (seconds: number) => {
     const daylight = city.update(seconds);
     record.rotation.y = -seconds * Math.PI * 2 * (33 / 60);

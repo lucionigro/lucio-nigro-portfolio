@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteShell } from "@/components/portfolio/site-shell";
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body><SiteShell>{children}</SiteShell></body>
+      <body><SiteShell>{children}</SiteShell><Analytics /></body>
     </html>
   );
 }

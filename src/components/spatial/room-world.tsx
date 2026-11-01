@@ -183,7 +183,8 @@ export default function RoomWorld({
     let current: RoomItemId | null = null,
       visible = true,
       last = 0,
-      disposed = false;
+      disposed = false,
+      ready = false;
     const pointerLean = new T.Vector2();
     let interacting = false;
     const renderSize = { width: 1, height: 1 };
@@ -196,9 +197,21 @@ export default function RoomWorld({
       anchorPoints.set(id as RoomItemId, obj.root.worldToLocal(point));
     }
     const projected = new T.Vector3();
-    const draw = () => {
-      if (disposed) return;
+    let sampleStart = performance.now(), sampleRenders = 0, sampleCPU = 0;
+    let pendingDraw = 0;
+    const render = () => {
+      pendingDraw = 0;
+      if (disposed || !ready || !visible || document.hidden) return;
+      const renderStart = process.env.NODE_ENV === "development" ? performance.now() : 0;
       renderer.render(scene, camera);
+      if (process.env.NODE_ENV === "development") {
+        sampleRenders++; sampleCPU += performance.now() - renderStart;
+        const now = performance.now();
+        if (now - sampleStart >= 1000) {
+          host.dataset.renderStats = JSON.stringify({ calls: renderer.info.render.calls, triangles: renderer.info.render.triangles, geometries: renderer.info.memory.geometries, textures: renderer.info.memory.textures, rendersPerSecond: sampleRenders * 1000 / (now - sampleStart), cpuMsPerRender: sampleCPU / sampleRenders });
+          sampleStart = now; sampleRenders = 0; sampleCPU = 0;
+        }
+      }
       if (!anchors) return;
       const { width, height } = renderSize;
       const offsets: Record<RoomItemId, [number, number]> = {
@@ -240,6 +253,12 @@ export default function RoomWorld({
         }
       }
     };
+    // Camera damping, GSAP and the room clock may all request the same frame.
+    // Submit it once, after their updates, without changing visual fidelity.
+    const draw = () => {
+      if (disposed || !ready || pendingDraw || !visible || document.hidden) return;
+      pendingDraw = requestAnimationFrame(render);
+    };
     controls.addEventListener("change", draw);
     const animate = (target: object, vars: gsap.TweenVars) =>
       gsap.to(target, {
@@ -252,20 +271,24 @@ export default function RoomWorld({
         },
         ...vars,
       });
-    // Each mesh owns its opacity, so a transition cannot fade a shared material
-    // on the object being inspected. All geometry and textures remain shared.
-    const fades = new Map<T.Object3D, { value: number; materials: T.Material[] }>();
+    // Each object owns its materials, so a transition cannot fade another object.
+    // Meshes within the object reuse their materials; geometry and textures stay shared.
+    type FadingMaterial = { material: T.Material; opacity: number; transparent: boolean; depthWrite: boolean };
+    const fades = new Map<T.Object3D, { value: number; materials: FadingMaterial[] }>();
     const prepareFade = (group: T.Object3D) => {
-      const materials: T.Material[] = [];
-      group.traverse((node) => {
+      const materials: FadingMaterial[] = [];
+      const copies = new Map<T.Material, T.Material>();
+      group.traverse(node => {
         if (!(node instanceof T.Mesh) && !(node instanceof T.Line)) return;
         const clone = (material: T.Material) => {
+          const cached = copies.get(material);
+          if (cached) return cached;
           const copy = material instanceof T.ShaderMaterial ? material : material.clone();
-          materials.push(copy);
+          copies.set(material, copy);
+          materials.push({ material: copy, opacity: material.opacity, transparent: material.transparent, depthWrite: material.depthWrite });
           return copy;
         };
-        node.material = Array.isArray(node.material)
-          ? node.material.map(clone) : clone(node.material);
+        node.material = Array.isArray(node.material) ? node.material.map(clone) : clone(node.material);
       });
       fades.set(group, { value: 1, materials });
     };
@@ -274,14 +297,16 @@ export default function RoomWorld({
     const applyFades = () => {
       for (const [group, fade] of fades) {
         group.visible = fade.value > 0.002;
-        for (const material of fade.materials) {
-          const transparent = fade.value < 0.999;
+        const fading = fade.value < 0.999;
+        for (const base of fade.materials) {
+          const { material } = base;
+          const transparent = base.transparent || fading;
           if (material.transparent !== transparent) {
             material.transparent = transparent;
             material.needsUpdate = true;
           }
-          material.opacity = fade.value;
-          material.depthWrite = !transparent;
+          material.opacity = base.opacity * fade.value;
+          material.depthWrite = base.depthWrite && !fading;
         }
       }
     };
@@ -399,7 +424,7 @@ export default function RoomWorld({
       }
       controls.enableDamping = !reduced.matches && !latest.current.paused;
       renderer.setAnimationLoop(
-        visible &&
+        ready && visible &&
           !document.hidden &&
           !latest.current.paused &&
           !reduced.matches
@@ -552,20 +577,29 @@ export default function RoomWorld({
       animate(camera.position, {x: destination.x, y: destination.y, z: destination.z, duration: noMotion() ? 0 : .35});
     };
     api.current = { focus, explode, sync, zoom };
-    if (latest.current.focusId) focus(latest.current.focusId);
-    else if (!noMotion()) {
-      gsap.from(camera.position, {
-        x: 10.6, y: 7.7, z: 10.8, duration: 2.2, ease: "power3.out",
-        onUpdate: () => { controls.update(); draw(); },
-      });
-    }
-    if (latest.current.exploded) explode(true);
-    sync();
-    latest.current.onReady(true);
+    // Warm programs before the first visible frame; supporting drivers compile
+    // in parallel instead of stalling the UI during the first render.
+    void renderer.compileAsync(scene, camera).then(() => {
+      if (disposed || renderer.getContext().isContextLost()) return;
+      ready = true;
+      if (latest.current.focusId) focus(latest.current.focusId);
+      else if (!noMotion()) {
+        gsap.from(camera.position, {
+          x: 10.6, y: 7.7, z: 10.8, duration: 2.2, ease: "power3.out",
+          onUpdate: () => { controls.update(); draw(); },
+        });
+      }
+      if (latest.current.exploded) explode(true);
+      sync();
+      latest.current.onReady(true);
+    }).catch(() => {
+      if (!disposed) latest.current.onReady(false);
+    });
     return () => {
       transition?.kill();
       assembly?.kill();
       disposed = true;
+      cancelAnimationFrame(pendingDraw);
       api.current = null;
       renderer.setAnimationLoop(null);
       resize.disconnect();
